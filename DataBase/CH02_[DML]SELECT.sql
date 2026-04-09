@@ -35,5 +35,3 @@ use world;
 select CountryCode, sum(population) as '총합' from city group by CountryCode; 
 -- 6 country 테이블에서 Continent 별로 LifeExpectancy의 평균을 구하세요(world DB에서진행)
 select Continent, avg(LifeExpectancy) as '평균'from country group by continent;
-
-
