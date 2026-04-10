@@ -39,10 +39,45 @@ use shopdb;
 
 create or replace view view_04
 as
-select distinct C.name as 'country name',  CT.name as 'city name', C.region, C.population, C.capital, CL.language
+select distinct C.name as 'countryname',  CT.name as 'cityname', C.region, C.population, C.capital, CL.language
 from world.country C
 inner join world.city CT
 on C.Code = CT.countryCode
 inner join world.countrylanguage CL
 on CT.countryCode = CL.countrycode
 order by C.name asc;
+
+select * from view_04;
+
+--
+drop table tbl_a;
+drop table tbl_b;
+drop view view_a_b;
+create table tbl_a(
+	col1 int  primary key,
+    col2 int 
+);
+create table tbl_b(
+	col3 int  primary key,
+    col4 int 
+);
+
+create or replace view view_a_b
+as
+select col1,col3  
+from tbl_a
+inner join tbl_b;
+
+desc tbl_a;
+desc tbl_b;
+select * from tbl_a;
+select * from tbl_b;
+select * from view_a_b;
+
+insert into tbl_a values(1,10);
+insert into tbl_b values(2,20); 
+insert into view_a_b(col1) values(3);
+insert into view_a_b(col3) values(4);
+
+-- join 된 view table에 insert 불가(단일 Table View는 제약조건을 만족하면 가능)
+insert into view_a_b(col1,col3) values(3,4);
